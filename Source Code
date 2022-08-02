@@ -1,0 +1,27 @@
+Sub GetIMEI1()
+
+Dim objRegex As Object
+Set objRegex = CreateObject("vbscript.regexp")
+Dim i, LastRow As Integer
+LastRow = Sheet1.Range("a65556").End(xlUp).Row
+Sheet1.Range("b1:b1999").Clear
+Sheet1.Range("b1:b1999").NumberFormat = "@"
+k = 1
+For i = 1 To LastRow Step 1
+    r = Sheet1.Range("a" & i).Text
+    With objRegex
+     .Global = True
+    .Pattern = "3\d{14}"
+     Set mat = .Execute(r)
+    For jj = 0 To mat.Count - 1
+        
+        Sheet1.Range("b" & k) = mat.Item(jj)
+    k = k + 1
+    Next
+End With
+    
+    
+
+Next
+        
+End Sub
